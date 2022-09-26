@@ -21,6 +21,9 @@
                 if(list != null) {
             %>
             <h2 class="text-center mb-3">Produtos</h2>
+            <div class="text-center mt-3 mb-3">
+                <a href="modificar_produto.jsp?mod=cad&pg=prod" class="btn btn-primary">Clique aqui para cadastrar um novo produto</a>
+            </div>
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -46,17 +49,22 @@
                         <td><%=list.get(i).getPreco()%></td>
                         <td><%=list.get(i).getQuantidade()%></td>
                         <%if(list.get(i).getValidade() != null) {%>
-                            <td><%=list.get(i).getQuantidade()%></td>
+                            <td><%=sdf.format(list.get(i).getValidade())%></td>
                         <%} else {%>
                             <td>Produto não possue validade</td>
                         <%}%>
-                        <td><a href="#" class="btn btn-warning">Atualizar</a></td>
-                        <td><a href="#" class="btn btn-danger">Excluir</a></td>
+                        <td><a href="modificar_produto.jsp?id=<%=list.get(i).getId()%>&mod=edit&pg=prod" class="btn btn-warning">Editar</a></td>
+                        <td><a href="modificar_produto.jsp?id=<%=list.get(i).getId()%>&mod=exc&pg=prod" class="btn btn-danger">Excluir</a></td>
                     </tr>
                     
                     <%}%>
                 </tbody>
             </table>
+            <%} else {%>
+            <h3 class="text-center">Você ainda não possue produtos cadastrados!</h3>
+            <div class="text-center mt-3">
+                <a href="modificar_produto.jsp?mod=cad&pg=prod" class="btn btn-primary">Clique aqui para cadastrar um</a>
+            </div>
             <%}%>
         </div>
     </body>

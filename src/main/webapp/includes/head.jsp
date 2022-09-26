@@ -6,6 +6,13 @@
     <%
         String pg = request.getParameter("pg");
         if(pg == null) {pg = "";}
+        String mod = request.getParameter("mod");
+        if(mod == null) {mod = "";}
+        String idS = request.getParameter("id");
+        int id = 0;
+        if(idS != null) {
+            id = Integer.parseInt(idS);
+        }
     if(pg.equals("prod")) {%>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
     <%} else {%>
