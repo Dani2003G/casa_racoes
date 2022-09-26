@@ -42,8 +42,23 @@ public class ProdutosDaoJDBC implements ProdutosDAO {
             }
 
             st.execute();
-
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
             DB.closeStatement(st);
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        PreparedStatement st = null;
+
+        try {
+            st = conn.prepareStatement("DELETE FROM produtos WHERE id = ?");
+
+            st.setInt(1, id);
+
+            st.executeUpdate();
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         } finally {
@@ -76,6 +91,9 @@ public class ProdutosDaoJDBC implements ProdutosDAO {
             return list;
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
         }
     }
 }
