@@ -67,6 +67,35 @@ public class ProdutosDaoJDBC implements ProdutosDAO {
     }
 
     @Override
+    public ProdutosDTO findById(int id) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = conn.prepareStatement("SELECT * FROM produtos WHERE id = ?");
+            
+            st.setInt(1, id);
+            
+            rs = st.executeQuery();
+            
+            ProdutosDTO produtosDTO = new ProdutosDTO();
+
+            if (rs.next()) {
+                produtosDTO.setId(rs.getInt("id"));
+                produtosDTO.setNome(rs.getString("nome"));
+                produtosDTO.setDescricao(rs.getString("descricao"));
+                produtosDTO.setPreco(rs.getDouble("preco"));
+                produtosDTO.setQuantidade(rs.getInt("quantidade"));
+                produtosDTO.setValidade(rs.getDate("validade"));
+            }
+            
+            return produtosDTO;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+    }
+    
+    @Override
     public List<ProdutosDTO> findAll() {
         PreparedStatement st = null;
         ResultSet rs = null;
