@@ -21,10 +21,22 @@
                     <div class="d-flex justify-content-center">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a href="index.jsp" class="nav-link">Inicio</a>
+                                <%
+                                    pg = request.getParameter("pg");
+                                    if(pg == null) {pg = "";}
+                                    if(pg.equals("prod")){
+                                %>
+                                    <a href="../index.jsp?pg=ini" class="nav-link">Inicio</a>
+                                <%} else {%>
+                                    <a href="index.jsp?pg=ini" class="nav-link active">Inicio</a>
+                                <%}%>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Produtos</a>
+                                <%if(pg.equals("prod")) {%>
+                                    <a href="produtos.jsp?pg=prod" class="nav-link active">Produtos</a>
+                                <%} else {%>
+                                    <a href="produtos/produtos.jsp?pg=prod" class="nav-link">Produtos</a>
+                                <%}%>
                             </li>
                         </ul>
                     </div>
