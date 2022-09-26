@@ -48,6 +48,38 @@ public class ProdutosDaoJDBC implements ProdutosDAO {
             DB.closeStatement(st);
         }
     }
+    
+    @Override
+    public void update(ProdutosDTO produto, int id) {
+        PreparedStatement st = null;
+
+        try {
+            st = conn.prepareStatement(
+                    "UPDATE produtos "
+                    + "set nome = ?, descricao = ?, preco = ?, quantidade = ?, validade = ? "
+                    + "WHERE id = ?"
+            );
+
+            st.setString(1, produto.getNome());
+            st.setString(2, produto.getDescricao());
+            st.setDouble(3, produto.getPreco());
+            st.setInt(4, produto.getQuantidade());
+            if (produto.getValidade() != null) {
+                st.setDate(5, new java.sql.Date(produto.getValidade().getTime()));
+            } else {
+                st.setDate(5, null);
+            }
+
+            st.setInt(6, id);
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
+    }
 
     @Override
     public void delete(int id) {
@@ -73,11 +105,11 @@ public class ProdutosDaoJDBC implements ProdutosDAO {
 
         try {
             st = conn.prepareStatement("SELECT * FROM produtos WHERE id = ?");
-            
+
             st.setInt(1, id);
-            
+
             rs = st.executeQuery();
-            
+
             ProdutosDTO produtosDTO = new ProdutosDTO();
 
             if (rs.next()) {
@@ -88,13 +120,16 @@ public class ProdutosDaoJDBC implements ProdutosDAO {
                 produtosDTO.setQuantidade(rs.getInt("quantidade"));
                 produtosDTO.setValidade(rs.getDate("validade"));
             }
-            
+
             return produtosDTO;
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(st);
         }
     }
-    
+
     @Override
     public List<ProdutosDTO> findAll() {
         PreparedStatement st = null;
