@@ -10,6 +10,10 @@
         if(mod == null) {mod = "";}
         String idS = request.getParameter("id");
         int id = 0;
+        String err = request.getParameter("err");
+        if(err == null) {err = "";}
+        String sus = request.getParameter("sus");
+        if(sus == null) {sus = "";}
         if(idS != null) {
             id = Integer.parseInt(idS);
         }

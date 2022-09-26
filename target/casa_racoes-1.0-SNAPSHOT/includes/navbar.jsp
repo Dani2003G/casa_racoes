@@ -1,7 +1,7 @@
 <!-- Inicio cabeçalho -->
 <header>
     <!-- Início barra de navegação -->
-    <nav class="navbar cabecalho navbar-expand-md navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="container">
 
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav-principal">
@@ -15,10 +15,11 @@
                 </a>
             </div>
             <!-- Fim logo -->
+            <h1 class="text-white d-md-none text-center">Casa de rações</h1>
             <div class="collapse navbar-collapse" id="nav-principal">
                 <div class="ms-auto">
-                    <h1 class="text-white">Casa de rações</h1>
-                    <div class="d-flex justify-content-center">
+                    <h1 class="text-white d-none d-md-inline">Casa de rações</h1>
+                    <div class="d-md-flex justify-content-center">
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <%
@@ -41,12 +42,9 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-
-            <div class="collapse navbar-collapse" id="nav-principal">
                 <div class="ms-auto">
                     <h5 class="text-white">Ligue: (11) 99101-2963</h5>
-                </div>
+                </div>             
             </div>
         </div>
     </nav>

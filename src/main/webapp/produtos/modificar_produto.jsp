@@ -12,6 +12,13 @@
             if(mod.equals("edit")){mod = "Editar produto";}
             if(mod.equals("exc")){mod = "Deletar produto";}
             if(mod.equals("cad")){mod = "Cadastrar produto";}
+            if(err.equals("cad")){err = "cadastrar";}
+            if(err.equals("edit")){err = "atualizar";}
+            if(err.equals("exc")){err = "deletar";}
+            if(sus.equals("cad")){sus = "cadastrar";}
+            if(sus.equals("edit")){sus = "atualizar";}
+            if(sus.equals("exc")){sus = "deletar";}
+            
             if(id > 0) {
                 ProdutosDAO dao = DaoFactory.createProdutosDao();
                 produtosDTO = dao.findById(id);
@@ -27,15 +34,25 @@
 
                 <div class="card-header">
                     <h3 class="text-center"><%=mod%></h3>
+                    <%if(err != "") {%>
+                        <p class="text-danger text-center">Erro ao <%=err%> o produto, tente novamente</p>
+                    <%}%>
+                    <%if(sus != "") {%>
+                        <p class="text-success text-center">Sucesso ao <%=sus%> o produto</p>
+                    <%}%>
                 </div>
 
                 <div class="card-body">
-                    <form action="#" method="POST">
+                    <form action="modificar_produto_controller.jsp" method="POST">
                         <div class="input-group mb-2">
+                            <%if(id > 0){ %>
+                                <input type="hidden" value="<%=produtosDTO.getId()%>" name="id">
+                            <%}%>
+                            <input type="hidden" value="<%=request.getParameter("mod")%>" name="mod">
                             <span class="input-group-text">Nome</span> 
                             <input
                                 class="form-control" type="text" 
-                                <%if(id > 0){%> value="<%=produtosDTO.getId()%>"<%}%>
+                                <%if(id > 0){%> value="<%=produtosDTO.getNome()%>"<%}%>
                                 name="nome" placeholder="Nome">
                         </div>
 
@@ -68,11 +85,13 @@
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button class="btn btn-success" type="submit"><%=mod%></button>
+                            <button class="btn btn-primary" type="submit"><%=mod%></button>
+                            <a href="produtos.jsp?pg=prod" class="btn btn-info" type="button">Voltar</a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+        <%@include file="../includes/footer.jsp" %>
     </body>
 </html>
