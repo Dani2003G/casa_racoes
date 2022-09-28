@@ -48,7 +48,7 @@
         <%@include file="/includes/navbar.jsp"%>
 
         <div class="container">
-            <div class="card mt-5 mb-3">
+            <div class="card mt-5 mb-5">
 
                 <div class="card-header">
                     <h3 class="text-center"><%=mod%></h3>
