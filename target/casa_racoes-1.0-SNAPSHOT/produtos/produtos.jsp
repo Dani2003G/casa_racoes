@@ -10,15 +10,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Produtos</title>
         <%@include file="/includes/head.jsp" %>
+        <%
+            ProdutosDAO dao = DaoFactory.createProdutosDao();
+            List<ProdutosDTO> list = dao.findAll();
+        %>
     </head>
     <body>
         <%@include file="/includes/navbar.jsp"%>
         <div class="container mt-4">
             <%
-                ProdutosDAO dao = DaoFactory.createProdutosDao();
-                List<ProdutosDTO> list = dao.findAll();
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                if(list != null) {
+                if (list.size() > 0) {
             %>
             <h2 class="text-center mb-3">Produtos</h2>
             <div class="text-center mt-3 mb-3">
@@ -48,15 +50,15 @@
                         <td><%=list.get(i).getDescricao()%></td>
                         <td><%=list.get(i).getPreco()%></td>
                         <td><%=list.get(i).getQuantidade()%></td>
-                        <%if(list.get(i).getValidade() != null) {%>
-                            <td><%=sdf.format(list.get(i).getValidade())%></td>
+                        <%if (list.get(i).getValidade() != null) {%>
+                        <td><%=sdf.format(list.get(i).getValidade())%></td>
                         <%} else {%>
-                            <td>Produto não possue validade</td>
+                        <td>Produto não possue validade</td>
                         <%}%>
                         <td><a href="modificar_produto.jsp?id=<%=list.get(i).getId()%>&mod=edit&pg=prod" class="btn btn-warning">Editar</a></td>
                         <td><a href="modificar_produto.jsp?id=<%=list.get(i).getId()%>&mod=exc&pg=prod" class="btn btn-danger">Excluir</a></td>
                     </tr>
-                    
+
                     <%}%>
                 </tbody>
             </table>
@@ -67,7 +69,10 @@
             </div>
             <%}%>
         </div>
-        
-        <%@include file="../includes/footer.jsp"%>
+        <%if (list.size() < 6) {%>
+        <%@include file="../includes/footerfix.jsp"%>
+        <%} else {%>
+        <%@include file="../includes/footernofix.jsp"%>
+        <%}%>
     </body>
 </html>
