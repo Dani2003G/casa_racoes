@@ -18,6 +18,7 @@ O projeto casa rações foi criado para ser enviado para um empresa, que pediu u
 - MySQL
 - JDBC
 - Java
+- JavaScript
 
 ---
 

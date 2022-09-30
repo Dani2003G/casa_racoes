@@ -33,7 +33,7 @@
                             <th scope="col">Id</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Descrição</th>
-                            <th scope="col">Perço</th>
+                            <th scope="col">Preço</th>
                             <th scope="col">Quantidade</th>
                             <th scope="col">Validade</th>
                             <th scope="col">Editar</th>
@@ -49,7 +49,7 @@
                             <th scope="row"><%=list.get(i).getId()%></th>
                             <td><%=list.get(i).getNome()%></td>
                             <td><%=list.get(i).getDescricao()%></td>
-                            <td><%=list.get(i).getPreco()%></td>
+                            <td id="preco"><%=list.get(i).getPreco()%></td>
                             <td><%=list.get(i).getQuantidade()%></td>
                             <%if (list.get(i).getValidade() != null) {%>
                             <td><%=sdf.format(list.get(i).getValidade())%></td>

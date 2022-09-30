@@ -26,14 +26,16 @@
                 try {
                     produtosDTO.setNome(request.getParameter("nome"));
                     produtosDTO.setDescricao(request.getParameter("descricao"));
-                    produtosDTO.setPreco(Double.parseDouble(request.getParameter("preco")));
+                    String precoS = request.getParameter("preco");
+                    precoS = precoS.replace(".", "");
+                    precoS = precoS.replace(",", ".");
+                    produtosDTO.setPreco(Double.parseDouble(precoS));
                     produtosDTO.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
                     if(request.getParameter("validade") != "") {
                         String validade = request.getParameter("validade");
                         validade = validade.replaceAll("-", "/");
                         produtosDTO.setValidade(sdf.parse(validade));
                     }
-                    
                     if(mod.equals("cad")) {
                         dao.insert(produtosDTO);
                         response.sendRedirect("modificar_produto.jsp?sus=cad&pg=prod&mod=cad");
@@ -59,7 +61,6 @@
                     response.sendRedirect("modificar_produto.jsp?err=exc&pg=prod&mod=exc");
                 }
             }
-        
         %>
     </body>
 </html>

@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="modificar_produto_controller.jsp" method="POST">
+                    <form action="modificar_produto_controller.jsp" id="form" method="POST">
                         <div class="input-group mb-2">
                             <%if (id > 0) {%>
                             <input type="hidden" value="<%=produtosDTO.getId()%>" name="id">
@@ -71,28 +71,34 @@
                             <input
                                 class="form-control" type="text" 
                                 <%if (id > 0) {%> value="<%=produtosDTO.getNome()%>"<%}%>
-                                name="nome" placeholder="Nome">
+                                name="nome" id="nome" placeholder="Nome">
+                            <span id="errorNome" class="hiding error">Nome tem que ser maior que 5 caracteres e menor que 36 caracteres</span>
+                            <br>
                         </div>
 
                         <div class="input-group mb-2">
                             <span class="input-group-text">descrição</span> <input
                                 class="form-control" type="text" 
                                 <%if (id > 0) {%> value="<%=produtosDTO.getDescricao()%>"<%}%>
-                                name="descricao" placeholder="decricao">
+                                name="descricao" id="descricao" placeholder="decricao">
+                            <span id="errorDescricao" class="hiding error">Descrição tem que ser maior que 15 caracteres e menor que 91 caracteres</span>
+                            <br>
                         </div>
 
                         <div class="input-group mb-2">
                             <span class="input-group-text">Preço</span> <input
                                 class="form-control" type="text" 
                                 <%if (id > 0) {%> value="<%=produtosDTO.getPreco()%>"<%}%>
-                                name="preco" placeholder="preco">
+                                name="preco" id="preco" placeholder="preco">
+                            <br>
+                            <span id="errorPreco" class="hiding error">Preço não pode ser nulo</span>
                         </div>
 
                         <div class="input-group mb-2">
                             <span class="input-group-text">Quantidade</span> <input
                                 class="form-control" type="text"
                                 <%if (id > 0) {%> value="<%=produtosDTO.getQuantidade()%>"<%}%>
-                                name="quantidade" placeholder="quantidade">
+                                name="quantidade" id="quantidade" placeholder="quantidade">
                         </div>
 
                         <div class="input-group mb-2">
@@ -112,5 +118,46 @@
         </div>
     </div>
     <%@include file="../includes/footernofix.jsp" %>
+    <script type="text/javascript">
+        let form = document.getElementById(form);
+
+        function validarCampos(event) {
+            event.preventDefault();
+            let nome = document.getElementById("nome");
+            let errorNome = document.getElementById("errorNome");
+            let descricao = document.getElementById("descricao");
+            let errorDescricao = document.getElementById("errorDescricao");
+            let preco = document.getElementById("preco");
+            let errorPreco = document.getElementById("errorPreco");
+            let quantidade = document.getElementById("quantidade");
+
+            if (nome.value.length < 5 || nome.value.length > 35) {
+                nome.classList.add('errorInput');
+                errorNome.classList.remove("hiding");
+            } else if (nome.value.length >= 5 && nome.value.length <= 35 {
+                nome.classList.remove("errorInput");
+                errorNome.classList.add("hiding");
+            }
+
+            if (descricao.value.length < 15 || descricao.value.length > 90) {
+                descricao.classList.add('errorInput');
+                errorDescricao.classList.remove("hiding");
+            } else if (descricao.value.length >= 15 && descricao.value.length <= 90) {
+                descricao.classList.remove("errorInput");
+                errorDescricao.classList.add("hiding");
+            }
+
+            if (preco.value === "" || peco.value === null) {
+                descricao.classList.add('errorInput');
+                errorPreco.classList.remove("hiding");
+            } else if (preco.value != "" && peco.value != null) {
+                descricao.classList.remove("errorInput");
+                errorDescricao.classList.add("hiding");
+            }
+                
+        }
+
+        form.addEventListener("submit", validarCampos);
+    </script>
 </body>
 </html>
